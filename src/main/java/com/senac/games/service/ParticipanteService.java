@@ -25,25 +25,24 @@ public class ParticipanteService {
         return this.participanteRepository.findById(participanteId).orElse(null);
     }
 
-    public Participante criarParticipante(ParticipanteDTOResponse participanteDTO) {
+    public ParticipanteDTOResponse criarParticipante(ParticipanteDTOResponse participanteDTO) {
         Participante participante = new Participante();
         participante.setNome(participanteDTO.getNome());
         participante.setIdentificacao(participanteDTO.getIdentificacao());
         participante.setEndereco(participanteDTO.getEndereco());
         participante.setStatus(participanteDTO.getStatus());
 
-        Participante partipanteSave = this.participanteRepository.save(participante);
+        Participante participanteSave = this.participanteRepository.save(participante);
 
         ParticipanteDTOResponse participanteDTOResponse = new ParticipanteDTOResponse();
-        ParticipanteDTOResponse.setId(partipanteSave.getId());
-        ParticipanteDTOResponse.setNome(partipanteSave.getNome());
-        ParticipanteDTOResponse.setEmail(partipanteSave.getEmail());
-        ParticipanteDTOResponse.setIdentificacao(partipanteSave.getIdentificacao());
-        ParticipanteDTOResponse.setEndereco(partipanteSave.getEndereco());
-        ParticipanteDTOResponse.setStatus(partipanteSave.getStatus());
+        participanteDTOResponse.setId(participanteSave.getId());
+        participanteDTOResponse.setNome(participanteSave.getNome());
+        participanteDTOResponse.setEmail(participanteSave.getEmail());
+        participanteDTOResponse.setIdentificacao(participanteSave.getIdentificacao());
+        participanteDTOResponse.setEndereco(participanteSave.getEndereco());
+        participanteDTOResponse.setStatus(participanteSave.getStatus());
 
-
-        return this.participanteRepository.save(participante);
+        return participanteDTOResponse;
 
     }
 

@@ -3,19 +3,18 @@ package com.senac.games.dto.response;
 import java.io.File;
 
 public class ParticipanteDTOResponse {
-    private Integer id;
+    private int id;
     private String nome;
     private String email;
     private String identificacao;
     private String endereco;
-    private File fotoPerfil;
-    private Integer status;
+    private int status;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,19 +50,11 @@ public class ParticipanteDTOResponse {
         this.endereco = endereco;
     }
 
-    public File getFotoPerfil() {
-        return fotoPerfil;
-    }
-
-    public void setFotoPerfil(File fotoPerfil) {
-        this.fotoPerfil = fotoPerfil;
-    }
-
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

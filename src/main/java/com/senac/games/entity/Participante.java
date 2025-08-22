@@ -36,16 +36,15 @@ public class Participante {
 
 
     @OneToMany(mappedBy = "participante")
-    private Set<Inscricao> inscricaos;
+    private Set<Inscricao> Inscricoes;
 
-    public Set<Inscricao> getInscricaos() {
-        return inscricaos;
+    public Set<Inscricao> getInscricoes() {
+        return Inscricoes;
     }
 
-    public void setInscricaos(Set<Inscricao> inscricaos) {
-        this.inscricaos = inscricaos;
+    public void setInscricoes(Set<Inscricao> Inscricoes) {
+        this.Inscricoes = Inscricoes;
     }
-
 
     public Integer getId() {
         return id;
