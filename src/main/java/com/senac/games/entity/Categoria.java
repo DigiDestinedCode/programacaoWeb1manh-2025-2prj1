@@ -22,16 +22,6 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private Set<Jogo> jogos;
 
-    public Set<Jogo> getJogos() {
-        return jogos;
-    }
-
-    public void setJogos(Set<Jogo> jogos) {
-        this.jogos = jogos;
-    }
-
-
-
     public Integer getId() {
         return id;
     }
@@ -54,5 +44,13 @@ public class Categoria {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<Jogo> getJogos() {
+        return jogos;
+    }
+
+    public void setJogos(Set<Jogo> jogos) {
+        this.jogos = jogos;
     }
 }

@@ -8,25 +8,25 @@ public class Premio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="premio_id")
-    private Integer id;
+    private int id;
 
     @Column(name="premio_descricao")
     private String descricao;
+
     @Column(name="premio_ordem_premiacao")
+    private int ordemPremiacao;
 
-    private Integer ordemPremiacao;
     @Column(name="premio_categoria")
+    private int categoria;
 
-    private Integer categoria;
     @Column(name="premio_status")
+    private int status;
 
-    private Integer status;
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,27 +38,27 @@ public class Premio {
         this.descricao = descricao;
     }
 
-    public Integer getOrdemPremiacao() {
+    public int getOrdemPremiacao() {
         return ordemPremiacao;
     }
 
-    public void setOrdemPremiacao(Integer ordemPremiacao) {
+    public void setOrdemPremiacao(int ordemPremiacao) {
         this.ordemPremiacao = ordemPremiacao;
     }
 
-    public Integer getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Integer categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

@@ -20,11 +20,11 @@ public class Inscricao {
     @Column(name = "inscricao_status")
     private int status;
 
-
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "participante_id", nullable=false)
     private Participante participante;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "jogo_id", nullable=false)

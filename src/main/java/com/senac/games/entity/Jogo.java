@@ -12,13 +12,13 @@ public class Jogo {
     @Id
     @GeneratedValue
     @Column(name = "jogo_id")
-    private Integer id;
+    private int id;
 
     @Column(name = "jogo_nome")
     private String nome;
 
     @Column(name = "jogo_status")
-    private Integer status;
+    private int status;
 
     @ManyToOne
     @JsonIgnore
@@ -26,13 +26,13 @@ public class Jogo {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "jogo")
-    private Set<Inscricao> inscricaos;
+    private Set<Inscricao> inscricoes;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,11 +44,11 @@ public class Jogo {
         this.nome = nome;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -60,11 +60,11 @@ public class Jogo {
         this.categoria = categoria;
     }
 
-    public Set<Inscricao> getInscricaos() {
-        return inscricaos;
+    public Set<Inscricao> getInscricoes() {
+        return inscricoes;
     }
 
-    public void setInscricaos(Set<Inscricao> inscricaos) {
-        this.inscricaos = inscricaos;
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
     }
 }
