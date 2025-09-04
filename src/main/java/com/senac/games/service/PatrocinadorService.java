@@ -27,7 +27,7 @@ public class PatrocinadorService {
 
     public List<Patrocinador> listarPatrocinadors(){
 
-        return this.patrocinadorRepository.listarPatrocinadors();
+        return this.patrocinadorRepository.listarPatrocinadores();
     }
 
     public Patrocinador listarPorPatrocinadorId(Integer patrocinadorId) {

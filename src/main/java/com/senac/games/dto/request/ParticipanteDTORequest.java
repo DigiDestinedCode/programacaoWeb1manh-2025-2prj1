@@ -1,8 +1,5 @@
 package com.senac.games.dto.request;
 
-
-
-
 public class ParticipanteDTORequest {
 
     private String nome;

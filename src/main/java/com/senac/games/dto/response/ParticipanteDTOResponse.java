@@ -1,7 +1,5 @@
 package com.senac.games.dto.response;
 
-import java.io.File;
-
 public class ParticipanteDTOResponse {
     private int id;
     private String nome;

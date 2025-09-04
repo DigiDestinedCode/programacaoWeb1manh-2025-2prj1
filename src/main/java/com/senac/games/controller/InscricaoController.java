@@ -31,7 +31,7 @@ public class InscricaoController {
             description = "Endpoint para listar todos os inscricaos")
 
     public ResponseEntity<List<Inscricao>> listarInscricaos(){
-        return ResponseEntity.ok(inscricaoService.listarInscricaos());
+        return ResponseEntity.ok(inscricaoService.listarInscricoes());
     }
 
     @GetMapping("/listarPorInscricaoId/{inscricaoId}")

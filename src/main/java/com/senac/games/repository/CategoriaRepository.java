@@ -16,14 +16,14 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Participante p SET p.status = -1 WHERE p.id = :id")
-    void apagadoLogicoCategoria(@Param("id") Integer participanteId);
+    void apagadoLogicoCategoria(@Param("id") Integer categoria);
 
 
 
     @Query("SELECT p from Categoria p WHERE p.status >= 0")
-    List<Participante> listarCategorias();
+    List<Categoria> listarCategorias();
 
 
     @Query("SELECT p from Participante p where p.id=:id AND p.status >=0")
-    Participante obterCategoriaPeloId(Integer participanteId);
+    Categoria obterCategoriaPeloId(Integer participanteId);
 }
