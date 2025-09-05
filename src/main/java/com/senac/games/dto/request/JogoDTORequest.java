@@ -4,6 +4,8 @@ public class JogoDTORequest {
     private String nome;
     private int status;
 
+    private int categoriaId;
+
     public String getNome() {
         return nome;
     }
@@ -18,5 +20,13 @@ public class JogoDTORequest {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
     }
 }

@@ -4,6 +4,7 @@ public class JogoDTOResponse {
     private int id;
     private String nome;
     private int status;
+    private int categoriaId;
 
     public int getId() {
         return id;
@@ -27,5 +28,13 @@ public class JogoDTOResponse {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
     }
 }
