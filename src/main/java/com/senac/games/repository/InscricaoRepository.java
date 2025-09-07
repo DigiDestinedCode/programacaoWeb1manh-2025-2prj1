@@ -17,11 +17,8 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
     @Query("UPDATE Inscricao p SET p.status = -1 WHERE p.id = :id")
     void apagadoLogicoInscricao(@Param("id") Integer inscricaoId);
 
-
-
     @Query("SELECT p from Inscricao p WHERE p.status >= 0")
     List<Inscricao> listarInscricoes();
-
 
     @Query("SELECT p from Inscricao p where p.id=:id AND p.status >=0")
     Inscricao obterInscricaoPeloId(Integer inscricaoId);

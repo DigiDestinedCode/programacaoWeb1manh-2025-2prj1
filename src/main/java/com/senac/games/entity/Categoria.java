@@ -49,7 +49,6 @@ public class Categoria {
     public Set<Jogo> getJogos() {
         return jogos;
     }
-
     public void setJogos(Set<Jogo> jogos) {
         this.jogos = jogos;
     }

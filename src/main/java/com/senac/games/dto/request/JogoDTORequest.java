@@ -3,7 +3,6 @@ package com.senac.games.dto.request;
 public class JogoDTORequest {
     private String nome;
     private int status;
-
     private int categoriaId;
 
     public String getNome() {

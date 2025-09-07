@@ -3,15 +3,16 @@ package com.senac.games.service;
 import com.senac.games.dto.request.JogoDTORequest;
 import com.senac.games.dto.response.JogoDTOResponse;
 import com.senac.games.dto.response.JogoDTOUpdateResponse;
-import com.senac.games.entity.Jogo;
+import com.senac.games.entity.Categoria;
 import com.senac.games.entity.Jogo;
 import com.senac.games.repository.CategoriaRepository;
-import com.senac.games.repository.JogoRepository;
 import com.senac.games.repository.JogoRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,73 +20,73 @@ import java.util.List;
 public class JogoService {
 
     private final JogoRepository jogoRepository;
-    private CategoriaRepository categoriaRepository;
-
+    private final CategoriaRepository categoriaRepository;
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public JogoService(JogoRepository jogoRepository) {
+    public JogoService(JogoRepository jogoRepository,
+                       CategoriaRepository categoriaRepository,
+                       ModelMapper modelMapper) {
         this.jogoRepository = jogoRepository;
+        this.categoriaRepository = categoriaRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public List<Jogo> listarJogos(){
-
-        return this.jogoRepository.listarJogos();
+    public List<JogoDTOResponse> listarJogos() {
+        return jogoRepository.listarJogos()
+                .stream()
+                .map(jogo -> modelMapper.map(jogo, JogoDTOResponse.class))
+                .toList()
+                ;
     }
 
-    public Jogo listarPorJogoId(Integer jogoId) {
-        return this.jogoRepository.obterJogoPeloId(jogoId);
+    public JogoDTOResponse listarPorJogoId(Integer jogoId) {
+        Jogo jogo = jogoRepository.obterJogoPeloId(jogoId);
+        return (jogo != null) ? modelMapper.map(jogo, JogoDTOResponse.class) : null;
     }
 
+    @Transactional
     public JogoDTOResponse criarJogo(JogoDTORequest jogoDTORequest) {
-
         Jogo jogo = modelMapper.map(jogoDTORequest, Jogo.class);
-        Jogo jogoSave = this.jogoRepository.save(jogo);
-        JogoDTOResponse jogoDTOResponse = modelMapper.map(jogoSave, JogoDTOResponse.class);
-        return jogoDTOResponse;
+        Categoria categoria = categoriaRepository.obterCategoriaPeloId(jogoDTORequest.getCategoriaId());
+        if(categoria != null){
+            jogo.setCategoria(categoria);
+            Jogo savedJogo = jogoRepository.save(jogo);
+            return modelMapper.map(savedJogo, JogoDTOResponse.class);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Transactional
     public JogoDTOResponse atualizarJogo(Integer jogoId, JogoDTORequest jogoDTORequest) {
-        //antes de atualizar busca se existe o registro a ser atualizar
-        Jogo jogo = this.listarPorJogoId(jogoId);
-        //se encontra o registro a ser atualizado
+        Jogo jogo = jogoRepository.obterJogoPeloId(jogoId);
+
         if (jogo != null) {
+            // atualiza dados do jogo a partir do DTO
             modelMapper.map(jogoDTORequest, jogo);
-            //copia os dados a serem atualizados do DTO de entrada para um objeto
-            //compatível com o repository para atualizar
-
-            jogo.setCategoria(categoriaRepository.obterCategoriaPeloId(jogoDTORequest.getCategoriaId())
-            );
-            //com o objeto no formato correto tipo "jogo" o comando "save" salva;;
-            //no banco de dados o objeto é atualizado
-            Jogo tempResponse = jogoRepository.save(jogo);
-            return modelMapper.map(tempResponse, JogoDTOResponse.class);
+            // atualiza a categoria vinculada
+            jogo.setCategoria(categoriaRepository.obterCategoriaPeloId(jogoDTORequest.getCategoriaId()));
+            Jogo savedJogo = jogoRepository.save(jogo);
+            return modelMapper.map(savedJogo, JogoDTOResponse.class);
         } else {
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
-
-    public JogoDTOUpdateResponse atualizarStatusJogo(Integer jogoId, JogoDTORequest jogoDTOUpdateRequest){
-        //antes de atualizar busca se existe o registro a ser atualizar
-        Jogo jogo = this.listarPorJogoId(jogoId);
-        //se encontra o registro a ser atualizado
-        if (jogo != null){
-            //copia os dados a serem atualizados do DTO de entrada para um objeto
-            //compatível com o repository para atualizar
+    @Transactional
+    public JogoDTOUpdateResponse atualizarStatusJogo(Integer jogoId, JogoDTORequest jogoDTOUpdateRequest) {
+        Jogo jogo = jogoRepository.obterJogoPeloId(jogoId);
+        if (jogo != null) {
             jogo.setStatus(jogoDTOUpdateRequest.getStatus());
-            //modelMapper.map(jogoDTOUpdateRequest,jogo);
-
-            //com o objeto no formato correto tipo "jogo" o comando "save" salva;;
-            //no banco de dados o objeto é atualizado
-            Jogo tempResponse = jogoRepository.save(jogo);
-            return modelMapper.map(tempResponse, JogoDTOUpdateResponse.class);
-        } else{
-            return null;
+            Jogo savedJogo = jogoRepository.save(jogo);
+            return modelMapper.map(savedJogo, JogoDTOUpdateResponse.class);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
-    public void apagarJogo(Integer jogoId){
+
+    public void apagarJogo(Integer jogoId) {
         jogoRepository.apagadoLogicoJogo(jogoId);
     }
 }

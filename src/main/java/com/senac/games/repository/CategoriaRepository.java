@@ -1,7 +1,6 @@
 package com.senac.games.repository;
 
 import com.senac.games.entity.Categoria;
-import com.senac.games.entity.Participante;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,15 +14,12 @@ import java.util.List;
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
     @Modifying
     @Transactional
-    @Query("UPDATE Participante p SET p.status = -1 WHERE p.id = :id")
+    @Query("UPDATE Categoria p SET p.status = -1 WHERE p.id = :id")
     void apagadoLogicoCategoria(@Param("id") Integer categoria);
-
-
 
     @Query("SELECT p from Categoria p WHERE p.status >= 0")
     List<Categoria> listarCategorias();
 
-
-    @Query("SELECT p from Participante p where p.id=:id AND p.status >=0")
-    Categoria obterCategoriaPeloId(Integer participanteId);
+    @Query("SELECT p from Categoria p where p.id=:id AND p.status >=0")
+    Categoria obterCategoriaPeloId(@Param("id") Integer categoriaId);
 }

@@ -3,9 +3,10 @@ package com.senac.games.dto.response;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class JogoDTOUpdateResponse {
-    @NotEmpty
+    @NotNull
     private int id;
     @NotEmpty
     @Min(0)

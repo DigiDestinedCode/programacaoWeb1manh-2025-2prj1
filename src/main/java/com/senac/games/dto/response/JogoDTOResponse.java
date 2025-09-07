@@ -4,7 +4,8 @@ public class JogoDTOResponse {
     private int id;
     private String nome;
     private int status;
-    private int categoriaId;
+    private int inscricaoId;
+    private CategoriaDTOResponse categoria;
 
     public int getId() {
         return id;
@@ -30,11 +31,19 @@ public class JogoDTOResponse {
         this.status = status;
     }
 
-    public int getCategoriaId() {
-        return categoriaId;
+    public int getInscricaoId() {
+        return inscricaoId;
     }
 
-    public void setCategoriaId(int categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setInscricaoId(int inscricaoId) {
+        this.inscricaoId = inscricaoId;
+    }
+
+    public CategoriaDTOResponse getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaDTOResponse categoria) {
+        this.categoria = categoria;
     }
 }
