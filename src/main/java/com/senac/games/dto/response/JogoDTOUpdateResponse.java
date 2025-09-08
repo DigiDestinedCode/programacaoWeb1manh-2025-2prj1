@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public class JogoDTOUpdateResponse {
     @NotNull
     private int id;
-    @NotEmpty
+    @NotNull
     @Min(0)
     @Max(2)
     private int status;

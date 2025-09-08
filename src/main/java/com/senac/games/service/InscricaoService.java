@@ -3,79 +3,104 @@ package com.senac.games.service;
 import com.senac.games.dto.request.InscricaoDTORequest;
 import com.senac.games.dto.response.InscricaoDTOResponse;
 import com.senac.games.dto.response.InscricaoDTOUpdateResponse;
+import com.senac.games.entity.Jogo;
+import com.senac.games.entity.Participante;
 import com.senac.games.entity.Inscricao;
+import com.senac.games.repository.JogoRepository;
+import com.senac.games.repository.ParticipanteRepository;
 import com.senac.games.repository.InscricaoRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 @Service
 public class InscricaoService {
 
     private final InscricaoRepository inscricaoRepository;
-
+    private final ParticipanteRepository participanteRepository;
+    private final JogoRepository jogoRepository;
     @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public InscricaoService(InscricaoRepository inscricaoRepository) {
+    public InscricaoService(InscricaoRepository inscricaoRepository,
+                            ParticipanteRepository participanteRepository,
+                            JogoRepository jogoRepository,
+                            ModelMapper modelMapper) {
         this.inscricaoRepository = inscricaoRepository;
+        this.participanteRepository = participanteRepository;
+        this.jogoRepository = jogoRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public List<Inscricao> listarInscricoes(){
-
-        return this.inscricaoRepository.listarInscricoes();
+    public List<InscricaoDTOResponse> listarInscricoes() {
+        return inscricaoRepository.listarInscricoes()
+                .stream()
+                .map(inscricao -> modelMapper.map(inscricao, InscricaoDTOResponse.class))
+                .toList()
+                ;
     }
 
-    public Inscricao listarPorInscricaoId(Integer inscricaoId) {
-        return this.inscricaoRepository.obterInscricaoPeloId(inscricaoId);
+    public InscricaoDTOResponse listarPorInscricaoId(Integer inscricaoId) {
+        Inscricao inscricao = inscricaoRepository.obterInscricaoPeloId(inscricaoId);
+        return (inscricao != null) ? modelMapper.map(inscricao, InscricaoDTOResponse.class) : null;
     }
 
+    @Transactional
     public InscricaoDTOResponse criarInscricao(InscricaoDTORequest inscricaoDTORequest) {
-
         Inscricao inscricao = modelMapper.map(inscricaoDTORequest, Inscricao.class);
-        Inscricao inscricaoSave = this.inscricaoRepository.save(inscricao);
-        InscricaoDTOResponse inscricaoDTOResponse = modelMapper.map(inscricaoSave, InscricaoDTOResponse.class);
-        return inscricaoDTOResponse;
-    }
+        Participante participante = participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId());
+        Jogo jogo = jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId());
+        if(participante != null & jogo != null){
+            inscricao.setParticipante(participante);
+            inscricao.setJogo(jogo);
 
-    public InscricaoDTOResponse atualizarInscricao(Integer inscricaoId, InscricaoDTORequest inscricaoDTORequest){
-        //antes de atualizar busca se existe o registro a ser atualizar
-        Inscricao inscricao = this.listarPorInscricaoId(inscricaoId);
-        //se encontra o registro a ser atualizado
-        if (inscricao != null){
-            modelMapper.map(inscricaoDTORequest,inscricao);
-            //copia os dados a serem atualizados do DTO de entrada para um objeto
-            //que é compatível com o repository para atualizar
-            //com o objeto no formato correto tipo "inscricao" o comando "save" salva;;
-            //no banco de dados o objeto é atualizado
-            Inscricao tempResponse = inscricaoRepository.save(inscricao);
-            return modelMapper.map(tempResponse,InscricaoDTOResponse.class);
-        } else{
-            return null;
+            Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
+            return modelMapper.map(InscricaoSave, InscricaoDTOResponse.class);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-
     }
 
-    public InscricaoDTOUpdateResponse atualizarStatusInscricao(Integer inscricaoId, InscricaoDTORequest inscricaoDTOUpdateRequest){
-        //antes de atualizar busca se existe o registro a ser atualizar
-        Inscricao inscricao = this.listarPorInscricaoId(inscricaoId);
+    @Transactional
+    public InscricaoDTOResponse atualizarInscricao(Integer inscricaoId, InscricaoDTORequest inscricaoDTORequest) {
+        //antes de atualizar busca se existe o registro a ser atualizado
+        Inscricao inscricao = inscricaoRepository.obterInscricaoPeloId(inscricaoId);
         //se encontra o registro a ser atualizado
-        if (inscricao != null){
-            //copia os dados a serem atualizados do DTO de entrada para um objeto
-            //que é compatível com o repository para atualizar
+        if (inscricao != null) {
+            // atualiza dados do inscricao a partir do DTO
+            modelMapper.map(inscricaoDTORequest, inscricao);
+            // atualiza a participante vinculada
+            inscricao.setParticipante(participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId()));
+            inscricao.setJogo(jogoRepository.obterJogoPeloId(inscricaoDTORequest.getParticipanteId()));
+            Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
+            return modelMapper.map(InscricaoSave, InscricaoDTOResponse.class);
+        } else {
+            // Error 400 caso tente atualiza inscricao inexistente.
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Transactional
+    public InscricaoDTOUpdateResponse atualizarStatusInscricao(Integer inscricaoId, InscricaoDTORequest inscricaoDTOUpdateRequest) {
+        //antes de atualizar busca se existe o registro a ser atualizado
+        Inscricao inscricao = inscricaoRepository.obterInscricaoPeloId(inscricaoId);
+        //se encontra o registro a ser atualizado
+        if (inscricao != null) {
+            // atualiza o status do Inscricao a partir do DTO
             inscricao.setStatus(inscricaoDTOUpdateRequest.getStatus());
-            //modelMapper.map(inscricaoDTOUpdateRequest,inscricao);
-
-            //com o objeto no formato correto tipo "inscricao" o comando "save" salva;;
-            //no banco de dados o objeto é atualizado
-            Inscricao tempResponse = inscricaoRepository.save(inscricao);
-            return modelMapper.map(tempResponse, InscricaoDTOUpdateResponse.class);
-        } else{
-            return null;
+            Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
+            return modelMapper.map(InscricaoSave, InscricaoDTOUpdateResponse.class);
+        } else {
+            // Error 400 caso tente atualiza inscricao inexistente.
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
-    public void apagarInscricao(Integer inscricaoId){
+
+    public void apagarInscricao(Integer inscricaoId) {
         inscricaoRepository.apagadoLogicoInscricao(inscricaoId);
     }
 }

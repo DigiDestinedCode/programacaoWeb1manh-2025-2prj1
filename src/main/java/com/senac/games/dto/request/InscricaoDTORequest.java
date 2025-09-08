@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class InscricaoDTORequest {
     private LocalDateTime data;
     private int status;
+    private int participanteId;
+    private int jogoId;
 
     public LocalDateTime getData() {
         return data;
@@ -20,5 +22,21 @@ public class InscricaoDTORequest {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getParticipanteId() {
+        return participanteId;
+    }
+
+    public void setParticipanteId(int participanteId) {
+        this.participanteId = participanteId;
+    }
+
+    public int getJogoId() {
+        return jogoId;
+    }
+
+    public void setJogoId(int jogoId) {
+        this.jogoId = jogoId;
     }
 }

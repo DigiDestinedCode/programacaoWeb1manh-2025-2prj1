@@ -7,6 +7,7 @@ public class ParticipanteDTOResponse {
     private String identificacao;
     private String endereco;
     private int status;
+    private int participanteId;
 
     public int getId() {
         return id;
@@ -54,5 +55,13 @@ public class ParticipanteDTOResponse {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getParticipanteId() {
+        return participanteId;
+    }
+
+    public void setParticipanteId(int participanteId) {
+        this.participanteId = participanteId;
     }
 }

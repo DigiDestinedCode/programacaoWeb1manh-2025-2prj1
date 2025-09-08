@@ -6,6 +6,8 @@ public class InscricaoDTOResponse {
     private int id;
     private LocalDateTime data;
     private int status;
+    private ParticipanteDTOResponse participante;
+    private JogoDTOResponse jogo;
 
     public int getId() {
         return id;
@@ -29,5 +31,21 @@ public class InscricaoDTOResponse {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public ParticipanteDTOResponse getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(ParticipanteDTOResponse participante) {
+        this.participante = participante;
+    }
+
+    public JogoDTOResponse getJogo() {
+        return jogo;
+    }
+
+    public void setJogo(JogoDTOResponse jogo) {
+        this.jogo = jogo;
     }
 }

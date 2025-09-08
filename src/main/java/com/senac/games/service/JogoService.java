@@ -51,8 +51,8 @@ public class JogoService {
         Categoria categoria = categoriaRepository.obterCategoriaPeloId(jogoDTORequest.getCategoriaId());
         if(categoria != null){
             jogo.setCategoria(categoria);
-            Jogo savedJogo = jogoRepository.save(jogo);
-            return modelMapper.map(savedJogo, JogoDTOResponse.class);
+            Jogo JogoSave = jogoRepository.save(jogo);
+            return modelMapper.map(JogoSave, JogoDTOResponse.class);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -60,28 +60,34 @@ public class JogoService {
 
     @Transactional
     public JogoDTOResponse atualizarJogo(Integer jogoId, JogoDTORequest jogoDTORequest) {
+        //antes de atualizar busca se existe o registro a ser atualizado
         Jogo jogo = jogoRepository.obterJogoPeloId(jogoId);
-
+        //se encontra o registro a ser atualizado
         if (jogo != null) {
             // atualiza dados do jogo a partir do DTO
             modelMapper.map(jogoDTORequest, jogo);
             // atualiza a categoria vinculada
             jogo.setCategoria(categoriaRepository.obterCategoriaPeloId(jogoDTORequest.getCategoriaId()));
-            Jogo savedJogo = jogoRepository.save(jogo);
-            return modelMapper.map(savedJogo, JogoDTOResponse.class);
+            Jogo JogoSave = jogoRepository.save(jogo);
+            return modelMapper.map(JogoSave, JogoDTOResponse.class);
         } else {
+            // Error 400 caso tente atualiza jogo inexistente.
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
     @Transactional
     public JogoDTOUpdateResponse atualizarStatusJogo(Integer jogoId, JogoDTORequest jogoDTOUpdateRequest) {
+        //antes de atualizar busca se existe o registro a ser atualizado
         Jogo jogo = jogoRepository.obterJogoPeloId(jogoId);
+        //se encontra o registro a ser atualizado
         if (jogo != null) {
+            // atualiza o status do Jogo a partir do DTO
             jogo.setStatus(jogoDTOUpdateRequest.getStatus());
-            Jogo savedJogo = jogoRepository.save(jogo);
-            return modelMapper.map(savedJogo, JogoDTOUpdateResponse.class);
+            Jogo JogoSave = jogoRepository.save(jogo);
+            return modelMapper.map(JogoSave, JogoDTOUpdateResponse.class);
         } else {
+            // Error 400 caso tente atualiza jogo inexistente.
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
