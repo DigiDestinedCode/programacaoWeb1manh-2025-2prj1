@@ -1,15 +1,8 @@
 package com.senac.games.controller;
 
 import com.senac.games.dto.request.InscricaoDTORequest;
-import com.senac.games.dto.request.InscricaoDTORequest;
 import com.senac.games.dto.response.InscricaoDTOResponse;
 import com.senac.games.dto.response.InscricaoDTOUpdateResponse;
-import com.senac.games.dto.response.InscricaoDTOResponse;
-import com.senac.games.dto.response.InscricaoDTOUpdateResponse;
-import com.senac.games.entity.Inscricao;
-import com.senac.games.entity.Inscricao;
-import com.senac.games.service.InscricaoService;
-import com.senac.games.service.InscricaoService;
 import com.senac.games.service.InscricaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

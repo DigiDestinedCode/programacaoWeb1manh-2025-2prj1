@@ -36,14 +36,6 @@ public class Participante {
     @OneToMany(mappedBy = "participante")
     private Set<Inscricao> Inscricoes;
 
-    public Set<Inscricao> getInscricoes() {
-        return Inscricoes;
-    }
-
-    public void setInscricoes(Set<Inscricao> Inscricoes) {
-        this.Inscricoes = Inscricoes;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -98,5 +90,13 @@ public class Participante {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<Inscricao> getInscricoes() {
+        return Inscricoes;
+    }
+
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        Inscricoes = inscricoes;
     }
 }

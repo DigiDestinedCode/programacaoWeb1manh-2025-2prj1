@@ -3,17 +3,17 @@ package com.senac.games.dto.response;
 import java.time.LocalDateTime;
 
 public class InscricaoDTOResponse {
-    private int id;
+    private Integer id;
     private LocalDateTime data;
-    private int status;
+    private Integer status;
     private ParticipanteDTOResponse participante;
     private JogoDTOResponse jogo;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -25,11 +25,11 @@ public class InscricaoDTOResponse {
         this.data = data;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

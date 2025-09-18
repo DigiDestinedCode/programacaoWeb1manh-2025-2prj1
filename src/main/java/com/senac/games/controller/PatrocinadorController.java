@@ -1,15 +1,8 @@
 package com.senac.games.controller;
 
 import com.senac.games.dto.request.PatrocinadorDTORequest;
-import com.senac.games.dto.request.PatrocinadorDTORequest;
 import com.senac.games.dto.response.PatrocinadorDTOResponse;
 import com.senac.games.dto.response.PatrocinadorDTOUpdateResponse;
-import com.senac.games.dto.response.PatrocinadorDTOResponse;
-import com.senac.games.dto.response.PatrocinadorDTOUpdateResponse;
-import com.senac.games.entity.Patrocinador;
-import com.senac.games.entity.Patrocinador;
-import com.senac.games.service.PatrocinadorService;
-import com.senac.games.service.PatrocinadorService;
 import com.senac.games.service.PatrocinadorService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

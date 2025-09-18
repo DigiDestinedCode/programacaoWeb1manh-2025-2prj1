@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class InscricaoDTORequest {
     private LocalDateTime data;
-    private int status;
-    private int participanteId;
-    private int jogoId;
+    private Integer status;
+    private Integer participanteId;
+    private Integer jogoId;
 
     public LocalDateTime getData() {
         return data;
@@ -16,27 +16,27 @@ public class InscricaoDTORequest {
         this.data = data;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getParticipanteId() {
+    public Integer getParticipanteId() {
         return participanteId;
     }
 
-    public void setParticipanteId(int participanteId) {
+    public void setParticipanteId(Integer participanteId) {
         this.participanteId = participanteId;
     }
 
-    public int getJogoId() {
+    public Integer getJogoId() {
         return jogoId;
     }
 
-    public void setJogoId(int jogoId) {
+    public void setJogoId(Integer jogoId) {
         this.jogoId = jogoId;
     }
 }

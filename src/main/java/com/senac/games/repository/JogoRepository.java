@@ -14,12 +14,12 @@ import java.util.List;
 public interface JogoRepository extends JpaRepository<Jogo, Integer> {
     @Modifying
     @Transactional
-    @Query("UPDATE Jogo p SET p.status = -1 WHERE p.id = :jogoId")
+    @Query("UPDATE Jogo j SET j.status = -1 WHERE j.id = :jogoId")
     void apagadoLogicoJogo(@Param("jogoId") Integer jogoId);
 
-    @Query("SELECT p from Jogo p WHERE p.status >= 0")
+    @Query("SELECT j from Jogo j WHERE j.status >= 0")
     List<Jogo> listarJogos();
 
-    @Query("SELECT p from Jogo p where p.id=:jogoId AND p.status >=0")
+    @Query("SELECT j from Jogo j where j.id=:jogoId AND j.status >=0")
     Jogo obterJogoPeloId(@Param("jogoId") Integer jogoId);
 }

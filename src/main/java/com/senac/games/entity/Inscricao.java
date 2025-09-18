@@ -18,7 +18,7 @@ public class Inscricao {
     private LocalDateTime data;
 
     @Column(name = "inscricao_status")
-    private int status;
+    private Integer status;
 
     @ManyToOne
     @JsonIgnore
@@ -29,14 +29,6 @@ public class Inscricao {
     @JsonIgnore
     @JoinColumn(name = "jogo_id", nullable=false)
     private Jogo jogo;
-
-    public Jogo getJogo() {
-        return jogo;
-    }
-
-    public void setJogo(Jogo jogo) {
-        this.jogo = jogo;
-    }
 
     public Integer getId() {
         return id;
@@ -54,11 +46,11 @@ public class Inscricao {
         this.data = data;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -68,5 +60,13 @@ public class Inscricao {
 
     public void setParticipante(Participante participante) {
         this.participante = participante;
+    }
+
+    public Jogo getJogo() {
+        return jogo;
+    }
+
+    public void setJogo(Jogo jogo) {
+        this.jogo = jogo;
     }
 }

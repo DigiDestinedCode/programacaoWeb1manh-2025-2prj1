@@ -1,6 +1,7 @@
 package com.senac.games.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -12,13 +13,21 @@ public class Jogo {
     @Id
     @GeneratedValue
     @Column(name = "jogo_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "jogo_nome")
     private String nome;
 
     @Column(name = "jogo_status")
-    private int status;
+    private Integer status;
+
+    @Transient
+    @JsonProperty("idCategoria")
+    private Integer idCategoria;
+    public Integer getIdCategoria() {
+        return this.categoria.getId();
+    }
+
 
     @ManyToOne
     @JsonIgnore
@@ -28,11 +37,11 @@ public class Jogo {
     @OneToMany(mappedBy = "jogo")
     private Set<Inscricao> inscricoes;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,12 +53,16 @@ public class Jogo {
         this.nome = nome;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public Categoria getCategoria() {

@@ -14,12 +14,12 @@ import java.util.List;
 public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
     @Modifying
     @Transactional
-    @Query("UPDATE Inscricao p SET p.status = -1 WHERE p.id = :inscricaoId")
+    @Query("UPDATE Inscricao i SET i.status = -1 WHERE i.id = :inscricaoId")
     void apagadoLogicoInscricao(@Param("inscricaoId") Integer inscricaoId);
 
-    @Query("SELECT p from Inscricao p WHERE p.status >= 0")
+    @Query("SELECT i from Inscricao i WHERE i.status >= 0")
     List<Inscricao> listarInscricoes();
 
-    @Query("SELECT p from Inscricao p where p.id=:inscricaoId AND p.status >=0")
+    @Query("SELECT i from Inscricao i where i.id=:inscricaoId AND i.status >=0")
     Inscricao obterInscricaoPeloId(Integer inscricaoId);
 }

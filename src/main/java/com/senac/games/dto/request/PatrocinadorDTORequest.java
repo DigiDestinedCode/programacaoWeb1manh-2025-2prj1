@@ -3,7 +3,7 @@ package com.senac.games.dto.request;
 public class PatrocinadorDTORequest {
     private String nome;
     private String representanteNome;
-    private int status;
+    private Integer status;
 
     public String getNome() {
         return nome;
@@ -21,11 +21,11 @@ public class PatrocinadorDTORequest {
         this.representanteNome = representanteNome;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

@@ -1,14 +1,9 @@
 package com.senac.games.controller;
 
 import com.senac.games.dto.request.ParticipanteDTORequest;
-import com.senac.games.dto.request.ParticipanteDTORequest;
 
 import com.senac.games.dto.response.ParticipanteDTOResponse;
 import com.senac.games.dto.response.ParticipanteDTOUpdateResponse;
-import com.senac.games.dto.response.ParticipanteDTOResponse;
-import com.senac.games.dto.response.ParticipanteDTOUpdateResponse;
-import com.senac.games.entity.Participante;
-import com.senac.games.service.ParticipanteService;
 import com.senac.games.service.ParticipanteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

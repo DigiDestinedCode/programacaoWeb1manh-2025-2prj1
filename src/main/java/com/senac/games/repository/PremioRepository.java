@@ -1,7 +1,5 @@
 package com.senac.games.repository;
 
-
-import com.senac.games.entity.Participante;
 import com.senac.games.entity.Premio;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

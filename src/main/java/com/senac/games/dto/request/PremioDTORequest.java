@@ -2,9 +2,9 @@ package com.senac.games.dto.request;
 
 public class PremioDTORequest {
     private String descricao;
-    private int ordemPremiacao;
-    private int categoria;
-    private int status;
+    private Integer ordemPremiacao;
+    private Integer categoria;
+    private Integer status;
 
     public String getDescricao() {
         return descricao;
@@ -14,27 +14,27 @@ public class PremioDTORequest {
         this.descricao = descricao;
     }
 
-    public int getOrdemPremiacao() {
+    public Integer getOrdemPremiacao() {
         return ordemPremiacao;
     }
 
-    public void setOrdemPremiacao(int ordemPremiacao) {
+    public void setOrdemPremiacao(Integer ordemPremiacao) {
         this.ordemPremiacao = ordemPremiacao;
     }
 
-    public int getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(int categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }
