@@ -16,12 +16,12 @@ import java.util.List;
 public interface PremioRepository extends JpaRepository<Premio, Integer> {
     @Modifying
     @Transactional
-    @Query("UPDATE Premio p SET p.status = -1 WHERE p.id = :id")
-    void apagadoLogicoPremio(@Param("id") Integer premioId);
+    @Query("UPDATE Premio p SET p.status = -1 WHERE p.id = :premioId")
+    void apagadoLogicoPremio(@Param("premioId") Integer premioId);
 
     @Query("SELECT p from Premio p WHERE p.status >= 0")
     List<Premio> listarPremios();
 
-    @Query("SELECT p from Premio p where p.id=:id AND p.status >=0")
+    @Query("SELECT p from Premio p where p.id=:premioId AND p.status >=0")
     Premio obterPremioPeloId(Integer premioId);
 }

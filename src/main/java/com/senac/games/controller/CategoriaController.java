@@ -1,13 +1,8 @@
 package com.senac.games.controller;
 
 import com.senac.games.dto.request.CategoriaDTORequest;
-import com.senac.games.dto.request.CategoriaDTORequest;
 import com.senac.games.dto.response.CategoriaDTOResponse;
 import com.senac.games.dto.response.CategoriaDTOUpdateResponse;
-import com.senac.games.dto.response.CategoriaDTOResponse;
-import com.senac.games.dto.response.CategoriaDTOUpdateResponse;
-import com.senac.games.entity.Categoria;
-import com.senac.games.service.CategoriaService;
 import com.senac.games.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
