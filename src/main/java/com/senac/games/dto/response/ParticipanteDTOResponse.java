@@ -1,5 +1,9 @@
 package com.senac.games.dto.response;
 
+import com.senac.games.entity.Inscricao;
+
+import java.util.Set;
+
 public class ParticipanteDTOResponse {
     private Integer id;
     private String nome;
@@ -7,7 +11,7 @@ public class ParticipanteDTOResponse {
     private String identificacao;
     private String endereco;
     private Integer status;
-    private Integer participanteId;
+    private Set<Inscricao> Inscricoes;
 
     public Integer getId() {
         return id;
@@ -57,11 +61,11 @@ public class ParticipanteDTOResponse {
         this.status = status;
     }
 
-    public Integer getParticipanteId() {
-        return participanteId;
+    public Set<Inscricao> getInscricoes() {
+        return Inscricoes;
     }
 
-    public void setParticipanteId(Integer participanteId) {
-        this.participanteId = participanteId;
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        Inscricoes = inscricoes;
     }
 }

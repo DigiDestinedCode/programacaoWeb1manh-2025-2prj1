@@ -1,10 +1,14 @@
 package com.senac.games.dto.response;
 
+import com.senac.games.entity.Jogo;
+
+import java.util.Set;
+
 public class CategoriaDTOResponse {
     private Integer id;
     private String nome;
     private Integer status;
-    private Integer jogoId;
+    private Set<Jogo> jogos;
 
     public Integer getId() {
         return id;
@@ -30,11 +34,11 @@ public class CategoriaDTOResponse {
         this.status = status;
     }
 
-    public Integer getJogoId() {
-        return jogoId;
+    public Set<Jogo> getJogos() {
+        return jogos;
     }
 
-    public void setJogoId(Integer jogoId) {
-        this.jogoId = jogoId;
+    public void setJogos(Set<Jogo> jogos) {
+        this.jogos = jogos;
     }
 }
