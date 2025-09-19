@@ -21,5 +21,5 @@ public interface PremioRepository extends JpaRepository<Premio, Integer> {
     List<Premio> listarPremios();
 
     @Query("SELECT p from Premio p where p.id=:premioId AND p.status >=0")
-    Premio obterPremioPeloId(Integer premioId);
+    Premio obterPremioPeloId(@Param("premioId") Integer premioId);
 }

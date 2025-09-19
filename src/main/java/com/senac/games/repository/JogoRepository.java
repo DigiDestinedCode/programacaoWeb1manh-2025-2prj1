@@ -21,5 +21,5 @@ public interface JogoRepository extends JpaRepository<Jogo, Integer> {
     List<Jogo> listarJogos();
 
     @Query("SELECT j from Jogo j where j.id=:jogoId AND j.status >=0")
-    Jogo obterJogoPeloId(@Param("jogoId") Integer jogoId);
+    Jogo obterJogoPeloId(Integer jogoId);
 }

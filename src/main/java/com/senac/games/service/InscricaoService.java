@@ -54,7 +54,7 @@ public class InscricaoService {
         Inscricao inscricao = modelMapper.map(inscricaoDTORequest, Inscricao.class);
         Participante participante = participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId());
         Jogo jogo = jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId());
-        if(participante != null & jogo != null){
+        if(participante != null && jogo != null){
             inscricao.setParticipante(participante);
             inscricao.setJogo(jogo);
 
@@ -75,7 +75,7 @@ public class InscricaoService {
             modelMapper.map(inscricaoDTORequest, inscricao);
             // atualiza a participante vinculada
             inscricao.setParticipante(participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId()));
-            inscricao.setJogo(jogoRepository.obterJogoPeloId(inscricaoDTORequest.getParticipanteId()));
+            inscricao.setJogo(jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId()));
             Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
             return modelMapper.map(InscricaoSave, InscricaoDTOResponse.class);
         } else {
@@ -85,13 +85,13 @@ public class InscricaoService {
     }
 
     @Transactional
-    public InscricaoDTOUpdateResponse atualizarStatusInscricao(Integer inscricaoId, InscricaoDTORequest inscricaoDTOUpdateRequest) {
+    public InscricaoDTOUpdateResponse atualizarStatusInscricao(Integer inscricaoId, InscricaoDTORequest InscricaoDTORequest) {
         //antes de atualizar busca se existe o registro a ser atualizado
         Inscricao inscricao = inscricaoRepository.obterInscricaoPeloId(inscricaoId);
         //se encontra o registro a ser atualizado
         if (inscricao != null) {
             // atualiza o status do Inscricao a partir do DTO
-            inscricao.setStatus(inscricaoDTOUpdateRequest.getStatus());
+            inscricao.setStatus(InscricaoDTORequest.getStatus());
             Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
             return modelMapper.map(InscricaoSave, InscricaoDTOUpdateResponse.class);
         } else {
