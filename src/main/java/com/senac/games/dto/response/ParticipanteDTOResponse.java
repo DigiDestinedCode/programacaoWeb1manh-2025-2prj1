@@ -1,5 +1,9 @@
 package com.senac.games.dto.response;
 
+import com.senac.games.entity.Inscricao;
+
+import java.util.Set;
+
 public class ParticipanteDTOResponse {
     private Integer id;
     private String nome;

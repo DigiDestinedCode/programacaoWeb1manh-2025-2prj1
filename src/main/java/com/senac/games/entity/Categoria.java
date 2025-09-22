@@ -12,13 +12,10 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoria_id")
     private Integer id;
-
     @Column(name = "categoria_nome")
     private String nome;
     @Column(name = "categoria_status")
     private Integer status;
-
-
     @OneToMany(mappedBy = "categoria")
     private Set<Jogo> jogos;
 

@@ -21,5 +21,5 @@ public interface PatrocinadorRepository extends JpaRepository<Patrocinador, Inte
     List<Patrocinador> listarPatrocinadores();
 
     @Query("SELECT p from Patrocinador p where p.id=:patrocinadorId AND p.status >=0")
-    Patrocinador obterPatrocinadorPeloId(Integer patrocinadorId);
+    Patrocinador obterPatrocinadorPeloId(@Param("jogoId") Integer patrocinadorId);
 }
