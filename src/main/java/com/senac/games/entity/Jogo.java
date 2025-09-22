@@ -24,10 +24,24 @@ public class Jogo {
     @Transient
     @JsonProperty("idCategoria")
     private Integer idCategoria;
+
     public Integer getIdCategoria() {
-        return this.categoria.getId();
+        return idCategoria;
     }
 
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+//    @JsonProperty("categoriaId")
+//    private Integer categoriaId;
+//
+//    public Integer getCategoriaId() {
+//        return (categoria != null) ? categoria.getId() : null;
+//    }
+//
+//    public void setCategoriaId(Integer categoriaId) {
+//        this.categoria = (categoriaId != null) ? new Categoria(categoriaId) : null;
+//    }
 
     @ManyToOne
     @JsonIgnore
@@ -61,9 +75,6 @@ public class Jogo {
         this.status = status;
     }
 
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 
     public Categoria getCategoria() {
         return categoria;
