@@ -33,6 +33,7 @@ public class Participante {
     @Column(name="participante_status")
     private Integer status;
 
+
     @OneToMany(mappedBy = "participante")
     private Set<Inscricao> Inscricoes;
 

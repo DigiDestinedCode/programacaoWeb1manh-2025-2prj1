@@ -72,10 +72,20 @@ public class InscricaoService {
         //se encontra o registro a ser atualizado
         if (inscricao != null) {
             // atualiza dados do inscricao a partir do DTO
-            modelMapper.map(inscricaoDTORequest, inscricao);
+            inscricao.setData(inscricaoDTORequest.getData());
+            inscricao.setStatus(inscricaoDTORequest.getStatus());
             // atualiza a participante vinculada
-            inscricao.setParticipante(participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId()));
-            inscricao.setJogo(jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId()));
+            Participante participante = participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId());
+            if (participante == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não encontrada");
+            }
+            inscricao.setParticipante(participante);
+            Jogo jogo = jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId());
+            if (jogo == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Jogo não encontrado");
+            }
+            inscricao.setJogo(jogo);
+
             Inscricao InscricaoSave = inscricaoRepository.save(inscricao);
             return modelMapper.map(InscricaoSave, InscricaoDTOResponse.class);
         } else {

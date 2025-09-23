@@ -24,14 +24,14 @@ public class Jogo {
     @Transient
     @JsonProperty("idCategoria")
     private Integer idCategoria;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
+    @OneToMany(mappedBy = "jogo")
+    private Set<Inscricao> inscricoes;
 
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
-    }
 //    @JsonProperty("categoriaId")
 //    private Integer categoriaId;
 //
@@ -42,14 +42,6 @@ public class Jogo {
 //    public void setCategoriaId(Integer categoriaId) {
 //        this.categoria = (categoriaId != null) ? new Categoria(categoriaId) : null;
 //    }
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
-
-    @OneToMany(mappedBy = "jogo")
-    private Set<Inscricao> inscricoes;
 
     public Integer getId() {
         return id;
@@ -75,6 +67,13 @@ public class Jogo {
         this.status = status;
     }
 
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
     public Categoria getCategoria() {
         return categoria;

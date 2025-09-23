@@ -1,6 +1,7 @@
 package com.senac.games.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,11 +21,17 @@ public class Inscricao {
     @Column(name = "inscricao_status")
     private Integer status;
 
+    @Transient
+    @JsonProperty("idParticipante")
+    private Integer idParticipante;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "participante_id", nullable=false)
     private Participante participante;
 
+    @Transient
+    @JsonProperty("idJogo")
+    private Integer idJogo;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "jogo_id", nullable=false)

@@ -8,6 +8,8 @@ public class ParticipanteDTORequest {
     private String endereco;
     private Integer status;
 
+    private Integer inscricaoId;
+
     public String getNome() {
         return nome;
     }
@@ -46,5 +48,13 @@ public class ParticipanteDTORequest {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getInscricaoId() {
+        return inscricaoId;
+    }
+
+    public void setInscricaoId(Integer inscricaoId) {
+        this.inscricaoId = inscricaoId;
     }
 }
