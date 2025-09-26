@@ -54,7 +54,7 @@ public class InscricaoService {
         Inscricao inscricao = modelMapper.map(inscricaoDTORequest, Inscricao.class);
         Participante participante = participanteRepository.obterParticipantePeloId(inscricaoDTORequest.getParticipanteId());
         Jogo jogo = jogoRepository.obterJogoPeloId(inscricaoDTORequest.getJogoId());
-        if(participante != null && jogo != null){
+        if(participante != null & jogo != null){
             inscricao.setParticipante(participante);
             inscricao.setJogo(jogo);
 
