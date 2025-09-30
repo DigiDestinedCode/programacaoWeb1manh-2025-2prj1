@@ -1,6 +1,6 @@
 package com.senac.games.dto.request;
 
-public record LoginUserDto(
-        String email,
-        String password) {
+public record LoginUsuarioDTO(
+        String login,
+        String senha) {
 }

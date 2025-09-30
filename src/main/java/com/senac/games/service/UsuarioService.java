@@ -1,40 +1,46 @@
-package com.example.demo.service;
+package com.senac.games.service;
 
-import com.example.demo.config.SecurityConfiguration;
-import com.example.demo.dto.CreateUserDto;
-import com.example.demo.dto.LoginUserDto;
-import com.example.demo.dto.RecoveryJwtTokenDto;
-import com.example.demo.entity.Role;
-import com.example.demo.entity.RoleName;
-import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
+
+import com.senac.games.config.SecurityConfiguration;
+import com.senac.games.dto.request.UsuarioDTOLoginRequest;
+import com.senac.games.dto.request.UsuarioDTORequest;
+import com.senac.games.dto.response.UsuarioDTO;
+import com.senac.games.dto.response.UsuarioDTOLoginResponse;
+import com.senac.games.entity.Role;
+import com.senac.games.entity.RoleName;
+import com.senac.games.entity.Usuario;
+import com.senac.games.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UsuarioService {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenService jwtTokenService;
-    private final UserRepository userRepository;
-    private final SecurityConfiguration securityConfiguration;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenService jwtTokenService;
+    private final UsuarioRepository usuarioRepository;
+    private SecurityConfiguration securityConfiguration;
 
-    public UserService(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, UserRepository userRepository, SecurityConfiguration securityConfiguration) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenService = jwtTokenService;
-        this.userRepository = userRepository;
-        this.securityConfiguration = securityConfiguration;
+    public UsuarioService(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, UsuarioRepository usuarioRepository, SecurityConfiguration securityConfiguration) {
+//        this.authenticationManager = authenticationManager;
+//        this.jwtTokenService = jwtTokenService;
+        this.usuarioRepository = usuarioRepository;
+//        this.securityConfiguration = securityConfiguration;
     }
 
     // Método responsável por autenticar um usuário e retornar um token JWT
-    public RecoveryJwtTokenDto authenticateUser(LoginUserDto loginUserDto) {
+    public UsuarioDTOLoginResponse login(UsuarioDTOLoginRequest usuarioDTOLoginRequest) {
         // Cria um objeto de autenticação com o email e a senha do usuário
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(loginUserDto.email(), loginUserDto.password());
+                new UsernamePasswordAuthenticationToken(usuarioDTOLoginRequest.getLogin(), usuarioDTOLoginRequest.getSenha());
 
         // Autentica o usuário com as credenciais fornecidas
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
@@ -43,24 +49,52 @@ public class UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         // Gera um token JWT para o usuário autenticado
-        return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
+        UsuarioDTOLoginResponse usuarioDTOLoginResponse = new UsuarioDTOLoginResponse();
+        usuarioDTOLoginResponse.setId(userDetails.getIdUsuario());
+        usuarioDTOLoginResponse.setNome(userDetails.getNomeUsuario());
+        usuarioDTOLoginResponse.setToken(jwtTokenService.generateToken(userDetails));
+        return usuarioDTOLoginResponse;
+//        return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
     }
 
     // Método responsável por criar um usuário
-    public void createUser(CreateUserDto createUserDto) {
+    public criar(UsuarioDTORequest usuarioDTORequest) {
 
-        // Cria um novo usuário com os dados fornecidos
-        User newUser = new User();
-        newUser.setEmail(createUserDto.email());
-        // Codifica a senha do usuário com o algoritmo bcrypt
-        newUser.setPassword(securityConfiguration.passwordEncoder().encode(createUserDto.password()));
-        // Atribui ao usuário uma permissão específica
+        List<Role> roles = new ArrayList<Role>();
+        for (int i=0; i<usuarioDTORequest.getRoleList().size(); i++){
+            Role role = new Role();
+            role.setName(RoleName.valueOf(usuarioDTORequest.getRoleList().get(i)));
+            roles.add(role);
+        }
+//        // Atribui ao usuário uma permissão específica
         Role role = new Role();
-        role.setName(createUserDto.role());
-        newUser.setRoles(List.of(role));
+//        role.setName(usuarioDTORequest.getRoles());
+//        newUser.setRoles(List.of(role));
+//
+//        // Cria um novo usuário com os dados fornecidos
 
 
-        // Salva o novo usuário no banco de dados
-        userRepository.save(newUser);
+        Usuario usuario = new Usuario();
+        usuario.setNome(usuarioDTORequest.getNome());
+        usuario.setCpf(usuarioDTORequest.getCpf());
+        usuario.setDataNascimento(usuarioDTORequest.getDataNascimento());
+        usuario.setLogin(usuarioDTORequest.getLogin());
+        usuario.setSenha(securityConfiguration.passwordEncoder().encode(usuarioDTORequest.getSenha()));
+        usuario.setStatus(1);
+        usuario.setRoles(roles);
+//        newUser.setLogin(usuarioDTORequest.getLogin());
+//        // Codifica a senha do usuário com o algoritmo bcrypt
+//        newUser.setSenha(securityConfiguration.passwordEncoder().encode(usuarioDTORequest.getSenha()));
+//
+//
+//        // Salva o novo usuário no banco de dados
+        Usuario usuariosave = usuarioRepository.save(usuario);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuario.setId(usuariosave.getId());
+        usuario.setNome(usuariosave.getNome());
+        usuario.setDataNascimento(usuariosave.getDataNascimento());
+        usuario.setCpf(usuariosave.getCpf());
+        usuario.setLogin(usuariosave.getLogin());
+        return usuarioDTO;
     }
 }

@@ -2,6 +2,7 @@ package com.senac.games.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Table(name = "Usuario")
@@ -11,7 +12,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "usuario_nome")
     private String nome;
@@ -19,10 +20,10 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "usuario_dataNascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(name = "usuario_status")
-    private String status;
+    private Integer status;
 
     @Column(name = "usuario_login")
     private String login;
@@ -36,11 +37,11 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,19 +61,19 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
