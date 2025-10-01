@@ -26,14 +26,12 @@ public class UsuarioService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenService jwtTokenService;
-    private final UsuarioRepository usuarioRepository;
+    @Autowired
     private SecurityConfiguration securityConfiguration;
+    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, UsuarioRepository usuarioRepository, SecurityConfiguration securityConfiguration) {
-//        this.authenticationManager = authenticationManager;
-//        this.jwtTokenService = jwtTokenService;
+    public UsuarioService(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
-//        this.securityConfiguration = securityConfiguration;
     }
 
     // Método responsável por autenticar um usuário e retornar um token JWT
@@ -58,7 +56,7 @@ public class UsuarioService {
     }
 
     // Método responsável por criar um usuário
-    public criar(UsuarioDTORequest usuarioDTORequest) {
+    public UsuarioDTO criar(UsuarioDTORequest usuarioDTORequest) {
 
         List<Role> roles = new ArrayList<Role>();
         for (int i=0; i<usuarioDTORequest.getRoleList().size(); i++){
@@ -82,13 +80,13 @@ public class UsuarioService {
         usuario.setSenha(securityConfiguration.passwordEncoder().encode(usuarioDTORequest.getSenha()));
         usuario.setStatus(1);
         usuario.setRoles(roles);
+        Usuario usuariosave = usuarioRepository.save(usuario);
 //        newUser.setLogin(usuarioDTORequest.getLogin());
 //        // Codifica a senha do usuário com o algoritmo bcrypt
 //        newUser.setSenha(securityConfiguration.passwordEncoder().encode(usuarioDTORequest.getSenha()));
 //
 //
 //        // Salva o novo usuário no banco de dados
-        Usuario usuariosave = usuarioRepository.save(usuario);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuario.setId(usuariosave.getId());
         usuario.setNome(usuariosave.getNome());

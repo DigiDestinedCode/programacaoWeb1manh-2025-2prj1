@@ -1,7 +1,5 @@
 package com.senac.games.dto.request;
 
-import com.senac.games.entity.Role;
-
 import java.time.LocalDate;
 import java.util.List;
 
